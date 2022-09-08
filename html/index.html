@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <!--[if lte IE 9
+      ]><meta
+        http-equiv="refresh"
+        content="0;url=http://outdatedbrowser.com/it"
+    /><![endif]-->
+    <title>SOMMM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="shortcut icon" type="image/png" href="img/favico.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@600&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="navbar">
+      <img id="logo" src="img/logo.svg" alt="SOMMM" />
+    </header>
+    <div id="info">In funzione su: <span id="attuale">404</span></div>
+    <form class="send" id="send">
+      <div class="container">
+        <div class="box item">
+          <h2>WiFi</h2>
+          <input placeholder="SSID" type="text" id="net_ssid" required />
+          <input
+            placeholder="Password"
+            type="password"
+            id="net_pswd"
+            placeholder="Lascia vuoto se non vuoi cambiarla"
+            minlength="8"
+            maxlength="63"
+          />
+        </div>
+        <div class="box item">
+          <h2>Impostazioni</h2>
+          <input placeholder="Aula" type="text" id="aula" required />
+          <div class="input">
+            <input
+              placeholder="URL API MarconiTT"
+              type="url"
+              id="api_url"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <label for="net_static">IP Statico<!--<img src="../img/on.svg"/>--></label>
+        <input
+        type="checkbox"
+        id="net_static"
+        name="net_static"
+        onclick="displayIPSettings(this.checked)"
+        />
+        <div class="container" id="indirizzo_ip" style="display: none;">
+          <div class="item">
+            <input
+              placeholder="Indirizzo IP"
+              type="text"
+              id="net_ip"
+              inputmode="decimal"
+              title="Inserisci un IP dispositivo valido"
+              pattern="(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])"
+            />
+            <input
+              placeholder="Subnet mask"
+              type="text"
+              id="net_sm"
+              inputmode="decimal"
+              title="Inserisci un IP subnet mask valido"
+              pattern="(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))"
+            />
+          </div>
+          <div class="spacer"></div>
+          <div class="item">
+            <input
+              placeholder="Default gateway"
+              type="text"
+              value=""
+              class="input_and_titles"
+              id="net_dfgw"
+              inputmode="decimal"
+              title="Inserisci un IP Default Gateway valido"
+              pattern="(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])"
+            />
+            <input
+              placeholder="Indirizzo DNS"
+              type="text"
+              id="net_dns"
+              inputmode="decimal"
+              title="Inserisci un indirizzo DNS valido"
+              pattern="(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])"
+            />
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="box submit" id="salva">Salva</button>
+    </form>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
