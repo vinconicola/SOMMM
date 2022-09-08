@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-    <link rel="shortcut icon" type="image/png" href="./img/favico.png"/>
   </head>
   <body>
     <div id="navbar">
+      <div id="sommmwrite">SOMMM</div>
       <div id="logo"></div>
     </div>
     <div id="container">
@@ -38,22 +38,22 @@
         <div id="indirizzo_ip" style="display:none;">
           <p class="title" style="padding-top:1.5rem;">Indirizzo IP</p>
           <div class="box">
-            <input type="text" name="FirstName" value="" class="casella" id="net_ip_0" title="Inserisci un IP dispositivo valido" pattern="(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])">
+            <input type="text" name="FirstName" value="" class="casella" id="net_ip_0">
           </div>
           <!--NET_SM-->
           <p class="title">Subnet Mask</p>
           <div class="box">
-            <input type="text" name="FirstName" value="" class="casella" id="net_sm_0" title="Inserisci un IP subnet mask valido" pattern="(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))">
+            <input type="text" name="FirstName" value="" class="casella" id="net_sm_0">
           </div>
           <!--NET_DFGW-->
           <p class="title">Default Gateway</p>
           <div class="box">
-            <input type="text" name="FirstName" value="" class="casella" id="net_dfgw_0" title="Inserisci un IP Default Gateway valido" pattern="(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])">
+            <input type="text" name="FirstName" value="" class="casella" id="net_dfgw_0">
           </div>
           <!--NET_DNS-->
           <p class="title">Indirizzo DNS</p>
           <div class="box" style="padding-bottom:1.5rem;">
-            <input type="text" name="FirstName" value="" class="casella" id="net_dns_0" title="Inserisci un indirizzo DNS valido" pattern="(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])">
+            <input type="text" name="FirstName" value="" class="casella" id="net_dns_0">
           </div>
         </div>
         <p class="title_1">Impostazioni Generali</p>
@@ -70,14 +70,14 @@
           <input class="input_and_titles long" type="text" value='http://172.16.1.98/orario/ttroomtosommm.php' id="api_url" required>
         </div>
         <div class="box" style="padding-top:1.5rem;">
-          <input id="salva" class='button' type="submit" value="Salva">
+          <input id="salva" class='button' type="button" value="Salva">
         </div>
       </form>
     </div>
     <script>
       function qs(sel) { return document.querySelector(sel); }
       function checkChange() { qs('#net_static').checked ? qs("#indirizzo_ip").style.display = '' : qs("#indirizzo_ip").style.display = 'none'; };
-      function serialize(obj) {
+      var serialize = function(obj) {
         var str = [];
         for (var p in obj)
           if (obj.hasOwnProperty(p)) {
@@ -86,36 +86,50 @@
         return str.join("&");
       };
       // and here's the trick (works everywhere)
-      function g(f) { /in/.test(document.readyState) ? setTimeout('g(' + f + ')', 9) : f() }
-      g(function() { // On document ready
+      function r(f) { /in/.test(document.readyState) ? setTimeout('r(' + f + ')', 9) : f() }
+
+      r(function() { // On document ready
           var r = new XMLHttpRequest();
           r.open('GET', '/info', true);
           r.onload = function() {
               if (r.status >= 200 && r.status < 400) { // Success!
                 qs('#attuale').textContent = r.responseText;
-              } else console.error("Error on /info status " + r.status);
+              }
           };
           r.send();
 
           var reGex = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/;
           var reGexSM = /^(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$/;
-          qs("#send").addEventListener("submit", function(e) {
+          qs("#salva").addEventListener("click", function(e) {
               e.preventDefault(); //stop form from submitting
-              var net_ip_0 = ['', '', '', ''];
-              var net_sm_0 = ['', '', '', ''];
               var net_dfgw_0 = ['', '', '', ''];
+              var net_ip_0 = ['', '', '', ''];
               var net_dns_0 = ['', '', '', ''];
+              var net_sm_0 = ['', '', '', ''];
 
               var net_ssid = qs("#net_ssid").value;
               var net_pswd = qs("#net_pswd").value;
 
               var net_static = qs("#net_static").checked ? "1" : "0";
               if (net_static == "1") {
-
                   if (reGex.test(qs("#net_ip_0").value)) {
                     net_ip_0 = qs("#net_ip_0").value.split(".")
                   } else {
-                    alert("Inserisci un IP dispositivo valido!");
+                    alert("Inserisci un IP dispositivo valido");
+                    return false;
+                  }
+
+                  if (reGex.test(qs("#net_dns_0").value)) {
+                    net_dns_0 = qs("#net_dns_0").value.split(".")
+                  } else {
+                    alert("Inserisci un IP DNS valido");
+                    return false;
+                  }
+
+                  if (reGex.test(qs("#net_dfgw_0").value)) {
+                    net_dfgw_0 = qs("#net_dfgw_0").value.split(".")
+                  } else {
+                    alert("Inserisci un IP Default Gateway valido");
                     return false;
                   }
 
@@ -125,23 +139,7 @@
                     alert("Inserisci un IP subnet mask valido");
                     return false;
                   }
-                  
-                  if (reGex.test(qs("#net_dfgw_0").value)) {
-                    net_dfgw_0 = qs("#net_dfgw_0").value.split(".")
-                  } else {
-                    alert("Inserisci un IP Default Gateway valido");
-                    return false;
-                  }
-                  
-                  if (reGex.test(qs("#net_dns_0").value)) {
-                    net_dns_0 = qs("#net_dns_0").value.split(".")
-                  } else {
-                    alert("Inserisci un IP DNS valido");
-                    return false;
-                  }
-
               }
-
               var aula = qs("#aula").value;
               var api_url = qs("#api_url").value;
 
@@ -149,9 +147,6 @@
                   alert("Inserisci l'aula!");
                   return false;
               }
-
-              document.body.style.cursor = 'wait';
-              qs("#salva").disabled = true;
 
               var params = {net_ssid: net_ssid, net_pswd: net_pswd, net_ip_0: net_ip_0[0], net_ip_1: net_ip_0[1], net_ip_2: net_ip_0[2], net_ip_3: net_ip_0[3], net_dns_0: net_dns_0[0], net_dns_1: net_dns_0[1], net_dns_2: net_dns_0[2], net_dns_3: net_dns_0[3], net_dfgw_0: net_dfgw_0[0], net_dfgw_1: net_dfgw_0[1], net_dfgw_2: net_dfgw_0[2], net_dfgw_3: net_dfgw_0[3], net_sm_0: net_sm_0[0], net_sm_1: net_sm_0[1], net_sm_2: net_sm_0[2], net_sm_3: net_sm_0[3], net_static: net_static, aula: aula, api_url: api_url};
               console.log(params);
@@ -165,19 +160,16 @@
                       var resp = r.responseText;
                       console.log(resp);
                       alert(resp);
-                  } else { // We reached our target server, but it returned an error (500)
-                      var resp = r.responseText;
-                      console.error("Error " + resp + " - status " + r.status);
-                      alert(resp);
+                  } else {
+                      // We reached our target server, but it returned an error (500)
+                      console.error(r.responseText);
+                      alert(r.responseText);
                   }
-                  document.body.style.cursor = 'default';
-                  qs("#salva").disabled = false;
               };
               r.onerror = function() {
                   // There was a connection error of some sort
-                  document.body.style.cursor = 'default';
-                  qs("#salva").disabled = false;
-                  console.error('Errore di connessione: ' + r.responseText);
+                  console.error('Errore di connessione');
+                  console.error(r.responseText);
                   alert(r.responseText);
               };
               r.send(enc);
