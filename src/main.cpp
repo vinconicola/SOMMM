@@ -54,6 +54,7 @@
                           `-yysssssosyhdmmNNmmNNhhNNNNNNNNNNNNNNNdmy/:/ymdhysssyyhhhdmNNmyyydo
  */
 
+#include <stdio.h>
 #include <Arduino.h>
 #include <images.h>
 #include <ESP8266mDNS.h>
@@ -66,7 +67,8 @@
 
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h>
+#include <ESP8266WiFiMulti.h>
+#include <WiFiClientSecureBearSSL.h>
 #include <ESP8266WebServer.h>
 #include <ArduinoJson.h>
 
@@ -139,7 +141,8 @@ int ip[4], dns[4], default_gw[4], subnet_m[4];
 
 String getData, Link, file_config;
 
-HTTPClient http;
+
+ESP8266WiFiMulti WiFiMulti;
 
 void setup()
 {
@@ -218,7 +221,7 @@ void setup()
   dns[1] = jsonRead["net_dns_1"];
   dns[2] = jsonRead["net_dns_2"];
   dns[3] = jsonRead["net_dns_3"];
-
+  
   if (static_config)
   {
     Serial.println("Configurazione statica...");
@@ -237,9 +240,11 @@ void setup()
       Serial.println("Errore configurazione statica");
     }
   }
+  
+  
 
   WiFi.mode(WIFI_STA);
-  WiFi.begin(net_ssid, net_pswd); // Provo a eseguire una connessione con le credenziali che ho
+  WiFiMulti.addAP(net_ssid, net_pswd); // Provo a eseguire una connessione con le credenziali che ho
 
   Serial.println("Connecting");
 
@@ -247,7 +252,7 @@ void setup()
   unsigned long counter = 0;
   const unsigned long soglia = 40000; // soglia di controllo per passare il AP (default 40s)
 
-  while (WiFi.status() != WL_CONNECTED && counter < soglia) // Wait for connection
+  while (WiFiMulti.run() != WL_CONNECTED && counter < soglia) // Wait for connection
   {
     counter = millis() - start_c;
     Serial.println(counter);
@@ -259,10 +264,13 @@ void setup()
   Serial.println(WiFi.macAddress());
   Serial.println(WiFi.hostname().c_str());
 
-  if (WiFi.status() == WL_CONNECTED)
+  if (WiFiMulti.run() == WL_CONNECTED)
   {
     // Connessione stabilita
     Serial.println(WiFi.localIP().toString().c_str());
+    Serial.println(WiFi.gatewayIP().toString().c_str());
+    Serial.println(WiFi.dnsIP().toString().c_str());
+    delay(2000);
 
     // Setto http sull'indirizzo del mio server
 
@@ -273,7 +281,50 @@ void setup()
 
     canRequest = true; // Abilito l'invio del dato
 
-    http.begin(http_address); // configuro e avvio http sul'url precedentemente dichiarato
+
+    std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
+    
+
+    //client->setFingerprint(fingerprint);
+    client->setInsecure();
+
+    HTTPClient https;
+
+    //-------
+    Serial.print("[HTTPS] begin...\n");
+    if (https.begin(*client, http_address)) {  // HTTPS
+
+      Serial.print("[HTTPS] GET...\n");
+      // start connection and send HTTP header
+      int httpCode = https.GET();
+
+      // httpCode will be negative on error
+      if (httpCode > 0) {
+        // HTTP header has been send and Server response header has been handled
+        Serial.printf("[HTTPS] GET... code: %d\n", httpCode);
+
+        // file found at server
+        if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
+          String response = https.getString();
+          payload = response.c_str();
+          Serial.println(payload);
+        }
+      } else {
+        Serial.printf("[HTTPS] GET... failed, error: %s\n", https.errorToString(httpCode).c_str());
+      }
+
+      //https.end();
+    
+    } else {
+      delay(5000);
+      error_page("Errore di connessione, verifica la rete");
+      log_error("Codice http -> " + String(httpCode));
+      delay(5000);
+      ESP.restart();
+    }
+    //-------
+
+    //http.begin(*client, http_address); // configuro e avvio http sul'url precedentemente dichiarato
 
     // Dichiaro la struttura del mio filesystem in modo da caricare i file archiviati con SPIFFS
     server.on("/info", []() {
@@ -582,25 +633,7 @@ void access_point()
  */
 void tabella()
 {
-  // CREO LA RICHIESTA ALLE API
-
-  httpCode = http.GET();
-  String response = http.getString();
-  payload = response.c_str();
-
-  Serial.println(httpCode);
-  Serial.println(payload);
-
-  http.end();
-
-  if (httpCode < 0)
-  {
-    delay(5000);
-    error_page("Errore di connessione, verifica la rete");
-    log_error("Codice http -> " + String(httpCode));
-    delay(5000);
-    ESP.restart();
-  }
+  
 
   /**
     !!!!PAURISSIMAAA!!!!!
