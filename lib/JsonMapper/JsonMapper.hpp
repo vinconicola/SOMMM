@@ -3,5 +3,5 @@
 
 #include <ArduinoJson.h>
 
-void json2array(DynamicJsonDocument &doc, const char *settimana_matrix[6][6], const char *today_matrix[10][5]);
+void json2array(DynamicJsonDocument &doc, const char *settimana_matrix[6][10], const char *today_matrix[10][5]);
 #endif

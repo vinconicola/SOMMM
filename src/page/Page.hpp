@@ -50,7 +50,7 @@ public:
      * -----------------------------------------------------------------------------------------
      *    Funzione che gestisce la tabella orario del SOMMM
      */
-    void tabella(int giorno_settimana, int oraAttuale, const char *stanza, const char *giorno, const char *today_matrix[10][5], const char *settimana_matrix[6][6]);
+    void tabella(int giorno_settimana, int oraAttuale, const char *stanza, const char *giorno, const char *today_matrix[10][5], const char *settimana_matrix[6][10]);
 
     /**
      * -----------------------------------------------------------------------------------------

@@ -181,7 +181,7 @@ void PageSystem::access_point(String random_id)
  * -----------------------------------------------------------------------------------------
  *    Funzione che gestisce la tabella orario del SOMMM
  */
-void PageSystem::tabella(int giorno_settimana, int oraAttuale, const char *stanza, const char *giorno, const char *today_matrix[10][5], const char *settimana_matrix[6][6])
+void PageSystem::tabella(int giorno_settimana, int oraAttuale, const char *stanza, const char *giorno, const char *today_matrix[10][5], const char *settimana_matrix[6][10])
 {
 
     display.setRotation(0);
@@ -230,6 +230,7 @@ void PageSystem::tabella(int giorno_settimana, int oraAttuale, const char *stanz
             display.setFont(&FreeSans9pt7b);
 
             display.setCursor(342, 90 + 54 * j);
+            if(j+offset == 9){display.setCursor(339, 90 + 54 * j);}
             display.println(j + offset + 1);
 
             if (j + 1 == oraAttuale)
@@ -266,9 +267,10 @@ void PageSystem::tabella(int giorno_settimana, int oraAttuale, const char *stanz
         display.setTextColor(GxEPD_WHITE);
 
         // Indicatore di ore dei vari giorni
-        for (int ora = 0; ora < 6; ora++)
+        for (int ora = 0; ora < 10; ora++)
         {
-            display.setCursor(7, 52 + (50 * ora));
+            display.setCursor(7, 50 + (30 * ora));
+            if (ora == 9) {display.setCursor(2, 50 + (30 * ora));}
             display.println(ora + 1);
         }
 
@@ -287,27 +289,27 @@ void PageSystem::tabella(int giorno_settimana, int oraAttuale, const char *stanz
         {
             if (giorno == giorno_settimana)
                 continue;
-            for (int ora = 0; ora < 6; ora++)
+            for (int ora = 0; ora < 10; ora++)
             {
-                display.fillRoundRect(30 + (50 * giorno), 25 + (50 * ora), 47, 47, 5, GxEPD_BLACK);
-                display.fillRoundRect(31 + (50 * giorno), 26 + (50 * ora), 45, 45, 5, GxEPD_WHITE);
+                display.fillRoundRect(30 + (50 * giorno), 27 + (30 * ora), 47, 28, 5, GxEPD_BLACK);
+                display.fillRoundRect(31 + (50 * giorno), 28 + (30 * ora), 45, 27, 5, GxEPD_WHITE);
             }
         }
 
         // Evidenzio il giorno corrente
-        for (int ora = 0; ora < 6; ora++)
+        for (int ora = 0; ora < 10; ora++)
         {
-            display.fillRoundRect(30 + (50 * giorno_settimana), 25 + (50 * ora), 47, 47, 5, GxEPD_WHITE);
-            display.fillRoundRect(31 + (50 * giorno_settimana), 26 + (50 * ora), 45, 45, 5, GxEPD_BLACK);
+            display.fillRoundRect(30 + (50 * giorno_settimana), 27 + (30 * ora), 47, 28, 5, GxEPD_WHITE);
+            display.fillRoundRect(31 + (50 * giorno_settimana), 28 + (30 * ora), 45, 27, 5, GxEPD_BLACK);
         }
 
         // Scrivo la classe in ogni ora del giorno
         display.setFont(&FreeSans9pt7b);
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 6; j++)
             {
-                display.setCursor(35 + (50 * j), 55 + (50 * i));
+                display.setCursor(35 + (50 * j), 47 + (30 * i));
                 if (giorno_settimana == j)
                     display.setTextColor(GxEPD_WHITE);
                 else

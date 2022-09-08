@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+
+.pio
+.pioenvs/
+.piolibdeps/
+
+html/**/*.gz
+data/html/

@@ -1,6 +1,6 @@
 #include "JsonMapper.hpp"
 
-void json2array(DynamicJsonDocument &doc, const char *settimana_matrix[6][6], const char *today_matrix[10][5])
+void json2array(DynamicJsonDocument &doc, const char *settimana_matrix[6][10], const char *today_matrix[10][5])
 {
 
   // Oggetto con i dati della settimana in corso
@@ -18,7 +18,7 @@ void json2array(DynamicJsonDocument &doc, const char *settimana_matrix[6][6], co
     for (JsonPair ora : giorno.value().as<JsonObject>())
     {
       // se supero le massime dimensioni dell'array mi fermo
-      if (column >= 6)
+      if (column >= 10)
         break;
       // salvo il puntatore nella matrice
       settimana_matrix[row][column] = ora.value();

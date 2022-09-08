@@ -79,7 +79,7 @@ void log_error(String error_m);                           // funzione per il sal
 void computeSha256(const char *payload, char *shaResult); // funzione che calcola l'hash SHA256 di una stringa
 
 // DEFINIZIONE DELLE VARIABILI GLOBALI NECESSARIE AL SISTEMA
-const char *version = "v2.3.0.0 x32";
+const char *version = "v2.3.0.1 x32";
 
 //CREDENZIALI WEB
 const char *www_username = "SOMMM";
@@ -409,7 +409,7 @@ void tabella()
   const char *today_matrix[10][5] = {""};
 
   // Matrice di puntatori a stringhe con le info della settima in corso
-  const char *settimana_matrix[6][6] = {""};
+  const char *settimana_matrix[6][10] = {""};
 
   json2array(doc, settimana_matrix, today_matrix);
 
