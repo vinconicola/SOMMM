@@ -1,0 +1,168 @@
+#logo,#net_static{
+    position:relative;
+}
+#container,#navbar{
+    left:0;
+    box-shadow:0 3px 6px rgba(0,0,0,.16),0 3px 6px rgba(0,0,0,.23);
+}
+#sommmwrite,.title_1,input{
+    font-style:italic;
+}
+body{
+    background-color:#f0f0f0;
+}
+#navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    height:4.5rem;
+    background-color:#253042;
+    z-index:10;
+}
+input{
+    font-family:arial;
+    color:#617583;
+    width:14rem;
+    border-radius:.5rem;
+    border:0;
+}
+#container,#sommmwrite,.title_1{
+    font-family:Arial;
+}
+#logo{
+    top:.1rem;
+    left:2rem;
+    background-image:url(../img/logo.png);
+    background-repeat:no-repeat;
+    height:6rem;
+    width:10rem;
+    background-size:contain;
+}
+#container{
+    position:absolute;
+    right:0;
+    top:6rem;
+    margin:auto auto 1rem;
+    width:90%;
+    background-color:#a5a5a5;
+    border-radius:10px;
+}
+#send{
+    margin:2rem;
+}
+.title_1{
+    font-size:2rem;
+    color:#32363d;
+}
+#sommmwrite{
+    position:absolute;
+    left:13rem;
+    top:2rem;
+    color:#dfdfdf;
+}
+#indirizzo_ip,#rete_wireless,#sensore{
+    background-color:#e5e5e5;
+    border-radius:1rem;
+    font-family:arial;
+    font-size:1.5rem;
+    font-style:italic;
+    color:#474747;
+}
+#net_static{
+    left:1rem;
+    width:1.2rem;
+    height:1.2rem;
+}
+.casella,.input_and_titles{
+    margin:1rem;
+    width:90%;
+    position:relative;
+}
+.title{
+    margin:1rem;
+}
+#salva{
+    width:100%;
+}
+@media only screen and (min-width:800px){
+    #container,#navbar{
+        left:0;
+        box-shadow:0 3px 6px rgba(0,0,0,.16),0 3px 6px rgba(0,0,0,.23);
+    }
+    #logo,#net_static{
+        position:relative;
+    }
+    #navbar{
+        position:fixed;
+        top:0;
+        width:100%;
+        height:6rem;
+        background-color:#253042;
+        z-index:10;
+    }
+    input{
+        font-family:arial;
+        font-style:italic;
+        font-size:2rem;
+        color:#617583;
+        width:45rem;
+        height:2rem;
+        margin:auto;
+        border-radius:.5rem;
+        border:0;
+    }
+    #sommmwrite,.title_1{
+        font-family:Arial;
+        font-size:3rem;
+        font-style:italic;
+    }
+    .button{
+        height:3rem;
+    }
+    #logo{
+        left:2rem;
+        background-image:url(../img/logo.png);
+        background-repeat:no-repeat;
+        height:7rem;
+        width:11rem;
+        background-size:contain;
+    }
+    #container{
+        font-family:Arial;
+        position:absolute;
+        right:0;
+        top:8rem;
+        margin:auto auto 1rem;
+        width:90%;
+        background-color:#a5a5a5;
+        border-radius:10px;
+    }
+    #send{
+        margin:2rem;
+    }
+    #net_static{
+        width:2rem;
+        left:1rem;
+        top:0;
+    }
+    .title_1{
+        color:#32363d;
+    }
+    #sommmwrite{
+        position:absolute;
+        left:14rem;
+        top:1.5rem;
+        color:#dfdfdf;
+    }
+    #indirizzo_ip,#rete_wireless,#sensore{
+        background-color:#e5e5e5;
+        border-radius:1rem;
+        font-family:arial;
+        font-size:2rem;
+        font-style:italic;
+        color:#474747;
+    }
+    .casella,.input_and_titles,.title{
+        margin:1rem;
+    }
+}

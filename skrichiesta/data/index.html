@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang='it'>
+  <head>
+    <meta charset="utf-8" />
+    <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=http://outdatedbrowser.com/it"><![endif]-->
+    <title>Configurazione SOMMM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+  </head>
+  <body>
+    <div id="navbar">
+      <div id="sommmwrite">SOMMM</div>
+      <div id="logo"></div>
+    </div>
+    <div id="container">
+      <form id="send">
+        <div id="info" class="title_1">In funzione su: <span id="attuale"></span></div>
+        <p class="title_1">Configurazione WiFi</p>
+        <div id="rete_wireless">
+          <!--SSID-->
+          <label class="input_and_titles" for="net_ssid" style="position:absolute;margin-top:5px;">WIFI ssid </label>
+          <br>
+          <input class="input_and_titles long" type="text" name="FirstName" value="" id="net_ssid">
+          <!--PSWD-->
+          <br>
+          <br>
+          <label class="input_and_titles" for="net_pswd">Wifi Password </label>
+          <br>
+          <input class="input_and_titles long" type="text" name="FirstName" value="" id="net_pswd">
+        </div>
+        <p class="title_1">Configurazione IP</p>
+        <div class="box" style="left:5%;">
+          <label for="net_static" class="title_1">Statico</label>
+          <input type="checkbox" id="net_static" name="net_static" class="static" onclick="checkChange()">
+        </div>
+        <!--NET_IP-->
+        <div id="indirizzo_ip" style="display:none;">
+          <p class="title" style="padding-top:1.5rem;">Indirizzo IP</p>
+          <div class="box">
+            <input type="text" name="FirstName" value="" class="casella" id="net_ip_0">
+          </div>
+          <!--NET_SM-->
+          <p class="title">Subnet Mask</p>
+          <div class="box">
+            <input type="text" name="FirstName" value="" class="casella" id="net_sm_0">
+          </div>
+          <!--NET_DFGW-->
+          <p class="title">Default Gateway</p>
+          <div class="box">
+            <input type="text" name="FirstName" value="" class="casella" id="net_dfgw_0">
+          </div>
+          <!--NET_DNS-->
+          <p class="title">Indirizzo DNS</p>
+          <div class="box" style="padding-bottom:1.5rem;">
+            <input type="text" name="FirstName" value="" class="casella" id="net_dns_0">
+          </div>
+        </div>
+        <p class="title_1">Impostazioni Generali</p>
+        <div id="sensore">
+          <!-- aula -->
+          <label class="input_and_titles" for="aula" style="margin-top:5px;">Aula/Laboratorio</label>
+          <br>
+          <input class="input_and_titles long" type="text" value="" id="aula" required>
+          <br>
+          <br>
+          <!-- api_url -->
+          <label class="input_and_titles" for="api_url">API Url</label>
+          <br>
+          <input class="input_and_titles long" type="text" value='http://172.16.1.98/orario/ttroomtosommm.php' id="api_url" required>
+        </div>
+        <div class="box" style="padding-top:1.5rem;">
+          <input id="salva" class='button' type="button" value="Salva">
+        </div>
+      </form>
+    </div>
+    <script>
+      function qs(sel) { return document.querySelector(sel); }
+      function checkChange() { qs('#net_static').checked ? qs("#indirizzo_ip").style.display = '' : qs("#indirizzo_ip").style.display = 'none'; };
+      var serialize = function(obj) {
+        var str = [];
+        for (var p in obj)
+          if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          }
+        return str.join("&");
+      };
+      // and here's the trick (works everywhere)
+      function r(f) { /in/.test(document.readyState) ? setTimeout('r(' + f + ')', 9) : f() }
+
+      r(function() { // On document ready
+          var r = new XMLHttpRequest();
+          r.open('GET', '/info', true);
+          r.onload = function() {
+              if (r.status >= 200 && r.status < 400) { // Success!
+                qs('#attuale').textContent = r.responseText;
+              }
+          };
+          r.send();
+
+          var reGex = /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/;
+          var reGexSM = /^(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$/;
+          qs("#salva").addEventListener("click", function(e) {
+              e.preventDefault(); //stop form from submitting
+              var net_dfgw_0 = ['', '', '', ''];
+              var net_ip_0 = ['', '', '', ''];
+              var net_dns_0 = ['', '', '', ''];
+              var net_sm_0 = ['', '', '', ''];
+
+              var net_ssid = qs("#net_ssid").value;
+              var net_pswd = qs("#net_pswd").value;
+
+              var net_static = qs("#net_static").checked ? "1" : "0";
+              if (net_static == "1") {
+                  if (reGex.test(qs("#net_ip_0").value)) {
+                    net_ip_0 = qs("#net_ip_0").value.split(".")
+                  } else {
+                    alert("Inserisci un IP dispositivo valido");
+                    return false;
+                  }
+
+                  if (reGex.test(qs("#net_dns_0").value)) {
+                    net_dns_0 = qs("#net_dns_0").value.split(".")
+                  } else {
+                    alert("Inserisci un IP DNS valido");
+                    return false;
+                  }
+
+                  if (reGex.test(qs("#net_dfgw_0").value)) {
+                    net_dfgw_0 = qs("#net_dfgw_0").value.split(".")
+                  } else {
+                    alert("Inserisci un IP Default Gateway valido");
+                    return false;
+                  }
+
+                  if (reGexSM.test(qs("#net_sm_0").value)) {
+                    net_sm_0 = qs("#net_sm_0").value.split(".")
+                  } else {
+                    alert("Inserisci un IP subnet mask valido");
+                    return false;
+                  }
+              }
+              var aula = qs("#aula").value;
+              var api_url = qs("#api_url").value;
+
+              if (aula.trim().length == 0) {
+                  alert("Inserisci l'aula!");
+                  return false;
+              }
+
+              var params = {net_ssid: net_ssid, net_pswd: net_pswd, net_ip_0: net_ip_0[0], net_ip_1: net_ip_0[1], net_ip_2: net_ip_0[2], net_ip_3: net_ip_0[3], net_dns_0: net_dns_0[0], net_dns_1: net_dns_0[1], net_dns_2: net_dns_0[2], net_dns_3: net_dns_0[3], net_dfgw_0: net_dfgw_0[0], net_dfgw_1: net_dfgw_0[1], net_dfgw_2: net_dfgw_0[2], net_dfgw_3: net_dfgw_0[3], net_sm_0: net_sm_0[0], net_sm_1: net_sm_0[1], net_sm_2: net_sm_0[2], net_sm_3: net_sm_0[3], net_static: net_static, aula: aula, api_url: api_url};
+              console.log(params);
+              var enc = serialize(params);
+
+              var r = new XMLHttpRequest();
+              r.open('POST', '/save');
+              r.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+              r.onload = function() {
+                  if (r.status >= 200 && r.status < 400) { // Success!
+                      var resp = r.responseText;
+                      console.log(resp);
+                      alert(resp);
+                  } else {
+                      // We reached our target server, but it returned an error (500)
+                      console.error(r.responseText);
+                      alert(r.responseText);
+                  }
+              };
+              r.onerror = function() {
+                  // There was a connection error of some sort
+                  console.error('Errore di connessione');
+                  console.error(r.responseText);
+                  alert(r.responseText);
+              };
+              r.send(enc);
+          });
+      });
+    </script>
+  </body>
+</html>

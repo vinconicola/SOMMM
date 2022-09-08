@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:export-filename="/home/riccardo/Immagini/logo_som.png"
+   inkscape:export-xdpi="94"
+   inkscape:export-ydpi="94"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="logo_som.svg">
+  <defs
+     id="defs2">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="7.2162771 : 149.56908 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="193.69656 : 183.24504 : 1"
+       inkscape:persp3d-origin="112.21628 : 100.06908 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="1"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="400.50178"
+     inkscape:cy="586.25483"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="false"
+     inkscape:snap-bbox="false"
+     inkscape:pagecheckerboard="false"
+     inkscape:window-width="1368"
+     inkscape:window-height="717"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Livello 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot26"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.5;stroke:#000000;stroke-opacity:0"
+       transform="matrix(-0.01252471,-0.94623159,0.96127317,-0.01232872,-122.80565,395.10629)"
+       inkscape:export-xdpi="94.5"
+       inkscape:export-ydpi="94.5"><flowRegion
+         id="flowRegion28"
+         style="fill:#000000;fill-opacity:0.5;stroke:#000000;stroke-opacity:0"><rect
+           id="rect30"
+           width="533.36053"
+           height="113.13708"
+           x="143.44167"
+           y="197.21996"
+           style="fill:#000000;fill-opacity:0.5;stroke:#000000;stroke-opacity:0" /></flowRegion><flowPara
+         id="flowPara32"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:85.33333588px;font-family:LKLUG;-inkscape-font-specification:LKLUG;fill:#000000;fill-opacity:0.5;stroke:#000000;stroke-opacity:0">SO</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2.03678393;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 75.5891,137.83887 137.35278,137.04672 158.56002,92.063275 136.16954,47.639 74.405661,48.431148 53.19843,93.414591 Z"
+       id="path48"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-xdpi="94.5"
+       inkscape:export-ydpi="94.5" />
+    <path
+       style="fill:none;fill-opacity:0.50196078;stroke:#0097e5;stroke-width:6.36269665;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       d="M 136.36382,129.90559 82.760742,130.59305 100.42949,92.80882 81.766655,55.490593 134.54767,54.813648"
+       id="path4588"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="94.5"
+       inkscape:export-ydpi="94.5" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:38.15214539px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.95380366"
+       x="-59.128117"
+       y="58.978577"
+       id="text4592"
+       inkscape:export-xdpi="94.5"
+       inkscape:export-ydpi="94.5"
+       transform="matrix(-0.01313132,-0.99206115,1.0078313,-0.01292585,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan4590"
+         x="-59.128117"
+         y="58.978577"
+         style="fill:#000000;fill-opacity:0.50196078;stroke-width:0.95380366">3</tspan></text>
+  </g>
+</svg>
